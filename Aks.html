@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Pookie ❤️</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --star-color: #fffce0;
+            --romance-pink: #ff4d6d;
+            --deep-night: #0a0612;
+            --plum: #2d0a31;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--deep-night) 0%, var(--plum) 100%);
+            font-family: 'Quicksand', sans-serif;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        /* Twinkling Stars Background */
+        .star {
+            position: absolute;
+            background: var(--star-color);
+            border-radius: 50%;
+            opacity: 0.5;
+            animation: twinkle var(--duration) infinite ease-in-out;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); box-shadow: 0 0 10px white; }
+        }
+
+        .heart {
+            position: absolute;
+            color: var(--romance-pink);
+            font-size: 18px;
+            pointer-events: none;
+            z-index: 1;
+            filter: drop-shadow(0 0 5px var(--romance-pink));
+            animation: floatUp 6s linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+            20% { opacity: 0.6; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+
+        .container {
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.08);
+            padding: 40px;
+            border-radius: 40px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            max-width: 500px;
+            width: 90%;
+            height: 680px; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative; 
+        }
+
+        h1 { 
+            font-family: 'Dancing Script', cursive;
+            color: #fff;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            text-shadow: 0 0 15px rgba(255, 77, 109, 0.5);
+        }
+
+        .gif-wrapper { 
+            width: 220px; 
+            min-height: 220px;
+            margin-bottom: 25px; 
+            border: 3px solid rgba(255,255,255,0.2);
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .tenor-container { display: none; width: 100%; }
+        .active-gif { display: block; }
+
+        /* Perfect Horizontal Alignment */
+        .btn-row {
+            display: flex;
+            flex-direction: row; /* Forces horizontal side-by-side */
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            width: 100%;
+            height: 120px; /* Provides space for growing Yes button */
+            position: relative;
+        }
+
+        .yes-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        button {
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            color: white;
+            transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            white-space: nowrap;
+        }
+
+        #yesBtn { background: linear-gradient(45deg, #ff4d6d, #ff758c); z-index: 1000; }
+        #noBtn { background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255,255,255,0.3); z-index: 50; }
+
+        /* Magic text positioned under Yes without breaking the row */
+        .magic-text { 
+            color: #ffb3c1; 
+            font-weight: bold; 
+            position: absolute;
+            bottom: -40px;
+            opacity: 0; 
+            transition: opacity 0.4s; 
+            font-style: italic; 
+            width: max-content;
+        }
+
+        .watermark { position: fixed; bottom: 20px; right: 25px; font-size: 0.85rem; color: rgba(255, 255, 255, 0.3); font-weight: bold; pointer-events: none; z-index: 2000; }
+    </style>
+</head>
+<body>
+
+    <div class="watermark">Created by "AKSHAJ"</div>
+    <div id="star-container"></div>
+    <div id="heart-container"></div>
+
+    <div class="container" id="mainCard">
+        <h1 id="question">Will you be my pookie?</h1>
+        
+        <div class="gif-wrapper" id="gifFrame">
+            <div id="gif0" class="tenor-container active-gif">
+                <div class="tenor-gif-embed" data-postid="23000401" data-share-method="host" data-aspect-ratio="1" data-width="100%"><a href="https://tenor.com/view/bubu-dudu-bubu-gif-23000401">Bubu Dudu Sticker</a></div>
+            </div>
+            <div id="gif1" class="tenor-container">
+                <div class="tenor-gif-embed" data-postid="5869006706266344939" data-share-method="host" data-aspect-ratio="1" data-width="100%"><a href="https://tenor.com/view/robert-bri-cute-hug-gif-5869006706266344939">Robert Bri GIF</a></div>
+            </div>
+            <div id="gif2" class="tenor-container">
+                <div class="tenor-gif-embed" data-postid="26465826" data-share-method="host" data-aspect-ratio="1.15108" data-width="100%"><a href="https://tenor.com/view/robert-downey-jr-tony-stark-gif-26465826">Robert Downey GIF</a></div>
+            </div>
+            <div id="gif3" class="tenor-container">
+                <div class="tenor-gif-embed" data-postid="5968291863515840228" data-share-method="host" data-aspect-ratio="0.803213" data-width="100%"><a href="https://tenor.com/view/bubu-dudu-bubu-dudu-love-gif-5968291863515840228">Bubu Dudu Love GIF</a></div>
+            </div>
+            <div id="gif4" class="tenor-container">
+                <div class="tenor-gif-embed" data-postid="3162435647008889847" data-share-method="host" data-aspect-ratio="1" data-width="100%"><a href="https://tenor.com/view/bubu-dudu-sseeyall-gif-3162435647008889847">Bubu Dudu Sseeyall GIF</a></div>
+            </div>
+            <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+        </div>
+
+        <div class="btn-row" id="buttonArea">
+            <div class="yes-wrapper">
+                <button id="yesBtn" onclick="handleYesClick()">Yes</button>
+                <p id="magicMsg" class="magic-text"></p>
+            </div>
+            <button id="noBtn" onclick="handleNoClick()" onmouseover="moveNo()" ontouchstart="moveNo()">No</button>
+        </div>
+    </div>
+
+    <script>
+        // Star Generation
+        for (let i = 0; i < 80; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = Math.random() * 100 + 'vw';
+            star.style.top = Math.random() * 100 + 'vh';
+            const size = Math.random() * 3 + 'px';
+            star.style.width = size; star.style.height = size;
+            star.style.setProperty('--duration', (Math.random() * 3 + 2) + 's');
+            document.getElementById('star-container').appendChild(star);
+        }
+
+        let yesScale = 1;
+        let noScale = 1;
+        let magicStarted = false;
+        let noCount = 0;
+
+        const nudgeMessages = ["Wait... click No for a surprise! ✨", "Pookie, click No first! 🌙"];
+        const noPhrases = ["No", "Are you sure? 🤨", "Pookie please... 🥺", "Don't do this! 😭", "Last chance! 😿"];
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart'; heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+            document.getElementById('heart-container').appendChild(heart);
+            setTimeout(() => heart.remove(), 6000);
+        }
+        setInterval(createHeart, 450);
+
+        function handleYesClick() {
+            if (!magicStarted) {
+                const msg = document.getElementById('magicMsg');
+                msg.style.opacity = "1";
+                msg.innerText = nudgeMessages[Math.floor(Math.random() * nudgeMessages.length)];
+            } else {
+                finishCelebration();
+            }
+        }
+
+        function handleNoClick() {
+            if (noCount >= 4) return;
+            magicStarted = true;
+            
+            document.getElementById(`gif${noCount}`).classList.remove('active-gif');
+            noCount++;
+            document.getElementById(`gif${noCount}`).classList.add('active-gif');
+
+            document.getElementById('magicMsg').style.opacity = "0";
+
+            if (yesScale < 2.5) yesScale += 0.45;
+            document.getElementById('yesBtn').style.transform = `scale(${yesScale})`;
+            
+            if (noScale > 0.4) noScale -= 0.12;
+            const noBtn = document.getElementById('noBtn');
+            noBtn.style.transform = `scale(${noScale})`;
+            noBtn.innerText = noPhrases[Math.min(noCount, noPhrases.length - 1)];
+        }
+
+        function moveNo() {
+            if (noCount >= 4) {
+                const noBtn = document.getElementById('noBtn');
+                const yesBtn = document.getElementById('yesBtn');
+                const card = document.getElementById('mainCard');
+                
+                noBtn.style.position = 'absolute';
+                const cardRect = card.getBoundingClientRect();
+                const yesRect = yesBtn.getBoundingClientRect();
+                const buffer = 90;
+                
+                let newX, newY, tooClose;
+                do {
+                    newX = Math.random() * (card.clientWidth - 110);
+                    newY = Math.random() * (card.clientHeight - 70);
+                    const screenX = cardRect.left + newX;
+                    const screenY = cardRect.top + newY;
+                    tooClose = (screenX > yesRect.left - buffer && screenX < yesRect.right + buffer) &&
+                               (screenY > yesRect.top - buffer && screenY < yesRect.bottom + buffer);
+                } while (tooClose);
+
+                noBtn.style.left = newX + 'px';
+                noBtn.style.top = newY + 'px';
+                const msg = document.getElementById('magicMsg');
+                msg.style.opacity = "1";
+                msg.innerText = "Too slow! Just click Yes! 😂 ✨";
+            }
+        }
+
+        function finishCelebration() {
+            document.getElementById('mainCard').innerHTML = `
+                <h1 style="color: white; font-family: 'Dancing Script', cursive;">I knew you would! 🎉</h1>
+                <img src="https://media.tenor.com/eNHbizSfVb0AAAAj/lovemode-cute.gif" style="width:250px; border-radius:25px; margin: 25px 0;">
+                <p style="font-size: 1.6rem; color: #ffb3c1; font-weight:bold; font-family: 'Dancing Script', cursive;">I love you pookie! Forever and always. ✨💕</p>
+            `;
+            confetti({ particleCount: 500, spread: 160, origin: { y: 0.5 }, colors: ['#ff4d6d', '#ff758c', '#ffffff'] });
+        }
+    </script>
+</body>
+</html>
